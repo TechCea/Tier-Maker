@@ -55,19 +55,28 @@ function handleDrop(event){
         const imgElement = createItem(src);
         currentTarget.appendChild(imgElement);
     }
-    currentTarget.classList.remove('drag-over')
+    currentTarget.classList.remove('drag-over');
+    currentTarget.querySelector('.drag-preview')?.remove();
 }
 function handleDragOver(event){
     event.preventDefault();
-    const { currentTarget } = event;
+    const { currentTarget, dataTransfer } = event;
 
     if(sourceContainer === currentTarget) return 
     currentTarget.classList.add('drag-over')
+
+    const dragPreview = document.querySelector('.drag-preview');
+    if (draggedElement && !dragPreview){
+        const previewElement = draggedElement.cloneNode(true);
+        previewElement.classList.add('drag-preview');
+        currentTarget.appendChild(previewElement);
+    }
 }
 function handleDragLeave(event) {
     event.preventDefault();
     const { currentTarget } = event;
-    currentTarget.classList.remove('drag-over')
+    currentTarget.classList.remove('drag-over');
+    currentTarget.querySelector('.drag-preview')?.remove();
 }
 
 function handleDragStart(event) {
