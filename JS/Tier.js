@@ -39,6 +39,10 @@ rows.forEach(row =>{
     row.addEventListener('dragleave',  handleDragLeave);
 });
 
+    itemsSection.addEventListener('drop', handleDrop);
+    itemsSection.addEventListener('dragover', handleDragOver);
+    itemsSection.addEventListener('dragleave',  handleDragLeave);
+
 function handleDrop(event){
     const { currentTarget, dataTransfer } = event;
 
@@ -51,16 +55,19 @@ function handleDrop(event){
         const imgElement = createItem(src);
         currentTarget.appendChild(imgElement);
     }
-    console.log('drop');
+    currentTarget.classList.remove('drag-over')
 }
 function handleDragOver(event){
     event.preventDefault();
     const { currentTarget } = event;
-    console.log('dragover')
+
+    if(sourceContainer === currentTarget) return 
+    currentTarget.classList.add('drag-over')
 }
 function handleDragLeave(event) {
     event.preventDefault();
-    console.log('dragleave')
+    const { currentTarget } = event;
+    currentTarget.classList.remove('drag-over')
 }
 
 function handleDragStart(event) {
