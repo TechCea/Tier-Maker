@@ -112,7 +112,6 @@ body{
 
     &.drag-files{
         background: #555;
-        border-style: dashed;
     }
 }
 .item-image{
@@ -127,3 +126,4 @@ body{
         pointer-events: none;
     }
 }
+
