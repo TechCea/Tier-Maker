@@ -107,6 +107,12 @@ body{
     height: 100px;
     margin-bottom: 100px;
     display: flex;
+
+
+    &.drag-files{
+        background: #555;
+        border-style: dashed;
+    }
 }
 .item-image{
     width: 50px;

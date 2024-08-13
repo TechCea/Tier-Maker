@@ -3,6 +3,7 @@ const $$ = el => document.querySelectorAll(el);
 
 const imageInput = $('#image-input');
 const itemsSection = $('#selector-items');
+const resetButton = $('#reset-button')
 
 function createItem (src){
     const imgElement = document.createElement('img');
@@ -16,16 +17,21 @@ function createItem (src){
             return imgElement;  
 };
 
-imageInput.addEventListener('change', (event) => {
-    const [file] = event.target.files;
-
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = (eventReader) => {
-            createItem(eventReader.target.result)
-        };
-        reader.readAsDataURL(file);
+function useFilesToCreateItems(files){
+    if (files && files.length > 0) {
+        Array.from(files).forEach(file => {
+            const reader = new FileReader();
+            reader.onload = (eventReader) => {
+                createItem(eventReader.target.result)
+            };
+            reader.readAsDataURL(file);
+        })
     }
+}
+
+imageInput.addEventListener('change', (event) => {
+    const files = event.target.files;
+    useFilesToCreateItems(files)
 });
 
 let draggedElement = null;
@@ -43,7 +49,31 @@ rows.forEach(row =>{
     itemsSection.addEventListener('dragover', handleDragOver);
     itemsSection.addEventListener('dragleave',  handleDragLeave);
 
+
+    itemsSection.addEventListener('drop', handleDropFromDesktop);
+    itemsSection.addEventListener('dragover', handleDragOverFromDesktop);
+
+    function handleDragOverFromDesktop(event){
+        event.preventDefault();
+        const { currentTarget, dataTransfer } = event;
+
+        if(dataTransfer.types.includes('Files')){
+            currentTarget.classList.add('drag-files');
+        }
+    };
+
+    function handleDropFromDesktop(event){
+        event.preventDefault();
+        const { currentTarget, dataTransfer } = event;
+        if(dataTransfer.types.includes('Files')){
+            currentTarget.classList.remove('drag-files');
+            const {files} = dataTransfer
+            useFilesToCreateItems(files);
+        }
+    }
+
 function handleDrop(event){
+    event.preventDefault();
     const { currentTarget, dataTransfer } = event;
 
     if (sourceContainer && draggedElement){
@@ -89,3 +119,12 @@ function handleDragEnd(event) {
     draggedElement = null;
     sourceContainer = null;
 }
+
+
+resetButton.addEventListener('click',() => {
+    const items = $$('.tier .item-image');
+    items.forEach(item =>{
+        item.remove()
+        itemsSection.appendChild(item);
+    })
+})
