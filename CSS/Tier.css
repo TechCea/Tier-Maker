@@ -127,4 +127,16 @@ body{
         pointer-events: none;
     }
 }
+#drop-area {
+    border: 2px dashed #666;
+    background: #222;
+    color: #aaa;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 16px;
+}
 
+#drop-area.drag-over {
+    background: #444;
+    color: #fff;
+}
