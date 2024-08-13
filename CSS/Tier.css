@@ -62,3 +62,42 @@ body{
         outline: 1px solid #fff;
     }
 }
+
+.selector{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+}
+.selector-buttons{
+    display: flex;
+    gap:8px;
+    justify-content: center;
+
+
+    & button, & label {
+        cursor: pointer;
+        transition: all .3 ease;
+        display: flex;
+        background: #222;
+        justify-content: center;
+        align-items: center;
+        width: 24px;
+        height: 24px;
+        padding: 4px;
+
+        &:hover{
+            background: #444;
+            scale: 1.1;
+        }
+    }
+}
+
+.selector-items{
+    border: solid 1px #666;
+    width: 100%;
+    height: 100px;
+    margin-bottom: 100px;
+    display: flex;
+}
