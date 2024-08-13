@@ -5,6 +5,7 @@
     --color-c: #fdff7f;
     --color-d: #bfff7f;
     --color-e: #7fff7f;
+    --background-dark: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
 }
 *,
 *::after, *::before{
@@ -17,7 +18,7 @@ button{
     cursor: pointer;
 }
 body{
-    background: black;
+    background: var(--background-dark);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     margin: auto;
     color: antiquewhite;

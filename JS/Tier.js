@@ -123,7 +123,7 @@ const $ = el => document.querySelector(el)
 
     function handleDragStart(event) {
       draggedElement = event.target
-      sourceContainer = draggedElement.parentNode;
+      sourceContainer = draggedElement.parentNode
       event.dataTransfer.setData('text/plain', draggedElement.src)
     }
 
