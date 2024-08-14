@@ -164,4 +164,3 @@ colorPickers.forEach((picker, index) => {
         label.style.setProperty('--level', newColor);
     });
 });
-

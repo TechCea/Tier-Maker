@@ -90,11 +90,12 @@ body{
     transform: scale(1.01) rotate(360deg);
     
 }
+
 /* Estilo del input de color dentro del contenedor */
 .color-picker {
     position: absolute;
     width: 25px;
-    height: 25px;
+    height: 25x;
     border: none;
     left: -60px;
     cursor: pointer;
