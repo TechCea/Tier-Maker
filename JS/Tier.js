@@ -66,6 +66,10 @@ rows.forEach(row => {
     row.addEventListener('dragleave', handleDragLeave);
 });
 
+itemsSection.addEventListener('dragover', handleDragOver);
+itemsSection.addEventListener('drop', handleDrop);
+itemsSection.addEventListener('dragleave', handleDragLeave);
+
 function handleDragStart(event) {
     draggedElement = event.target;
     sourceContainer = draggedElement.parentNode;
@@ -156,14 +160,14 @@ document.addEventListener('click', (event) => {
         picker.blur(); // Pierde el foco, cerrando el selector de color
       }
     });
-  });
-  
-  const colorPickers = document.querySelectorAll('.color-picker');
-  colorPickers.forEach((picker) => {
+});
+
+
+const colorPickers = document.querySelectorAll('.color-picker');
+colorPickers.forEach((picker) => {
     picker.addEventListener('input', (event) => {
-      const newColor = event.target.value;
-      const label = picker.closest('.label');
-      label.style.setProperty('--level', newColor);
+        const newColor = event.target.value;
+        const label = picker.closest('.label');
+        label.style.setProperty('--level', newColor);
     });
-  });
-  
+});

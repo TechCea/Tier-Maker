@@ -135,8 +135,9 @@ body{
         justify-content: center;
         align-items: center;
         width: 30px;
-        height: 25px;
+        height: 30px;
         padding: 4px;
+        border-radius: 8px;
 
         &:hover{
             background: #444;
