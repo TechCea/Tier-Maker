@@ -151,16 +151,18 @@ const colorPickers = document.querySelectorAll('.color-picker');
 const colorTriggers = document.querySelectorAll('.color-picker-trigger');
 
 colorTriggers.forEach((trigger, index) => {
-    trigger.addEventListener('click', () => {
-        const colorPicker = colorPickers[index];
-        colorPicker.click(); // Abre el selector de color
-    });
+  trigger.addEventListener('click', () => {
+    const colorPicker = colorPickers[index];
+    colorPicker.click(); // Abre el selector de color
+  });
 });
 
 colorPickers.forEach((picker, index) => {
-    picker.addEventListener('input', (event) => {
-        const newColor = event.target.value;
-        const label = picker.closest('.label');
-        label.style.setProperty('--level', newColor);
-    });
+  picker.addEventListener('input', (event) => {
+    const newColor = event.target.value;
+    const label = picker.closest('.label');
+    label.style.setProperty('--level', newColor);
+  });
 });
+
+
