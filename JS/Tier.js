@@ -10,6 +10,9 @@ const saveButton = $('#save-tier-button');
 let draggedElement = null;
 let sourceContainer = null;
 
+// Para dispositivos táctiles
+let initialTouchPos = null;
+
 dropArea.addEventListener('dragover', (event) => {
     event.preventDefault();
     dropArea.classList.add('drag-over');
@@ -35,6 +38,11 @@ function createItem(src, container) {
 
     imgElement.addEventListener('dragstart', handleDragStart);
     imgElement.addEventListener('dragend', handleDragEnd);
+    
+    // Soporte para dispositivos táctiles
+    imgElement.addEventListener('touchstart', handleTouchStart, { passive: true });
+    imgElement.addEventListener('touchmove', handleTouchMove, { passive: true });
+    imgElement.addEventListener('touchend', handleTouchEnd);
 
     container.appendChild(imgElement);
 }
@@ -64,6 +72,10 @@ rows.forEach(row => {
     row.addEventListener('dragover', handleDragOver);
     row.addEventListener('drop', handleDrop);
     row.addEventListener('dragleave', handleDragLeave);
+    
+    // Para dispositivos táctiles
+    row.addEventListener('touchmove', handleTouchMove, { passive: true });
+    row.addEventListener('touchend', handleTouchEnd);
 });
 
 itemsSection.addEventListener('dragover', handleDragOver);
@@ -124,6 +136,50 @@ function handleDragLeave(event) {
     currentTarget.querySelector('.drag-preview')?.remove();
 }
 
+// Funciones para soporte táctil
+function handleTouchStart(event) {
+    initialTouchPos = event.touches[0];
+    draggedElement = event.target;
+    sourceContainer = draggedElement.parentNode;
+}
+
+function handleTouchMove(event) {
+    const touch = event.touches[0];
+
+    const targetElement = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    if (targetElement && targetElement.classList.contains('row')) {
+        targetElement.classList.add('drag-over');
+    }
+
+    if (targetElement && draggedElement && targetElement !== sourceContainer) {
+        const dragPreview = document.querySelector('.drag-preview');
+
+        if (!dragPreview) {
+            const previewElement = draggedElement.cloneNode(true);
+            previewElement.classList.add('drag-preview');
+            targetElement.appendChild(previewElement);
+        }
+    }
+}
+
+function handleTouchEnd(event) {
+    const touch = event.changedTouches[0];
+
+    const targetElement = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    if (targetElement && draggedElement && targetElement !== sourceContainer) {
+        sourceContainer.removeChild(draggedElement);
+        targetElement.appendChild(draggedElement);
+    }
+
+    targetElement.classList.remove('drag-over');
+    targetElement.querySelector('.drag-preview')?.remove();
+
+    draggedElement = null;
+    sourceContainer = null;
+}
+
 resetButton.addEventListener('click', () => {
     const items = $$('.tier .item-image');
     items.forEach(item => {
@@ -151,7 +207,6 @@ saveButton.addEventListener('click', () => {
         });
 });
 
-
 document.addEventListener('click', (event) => {
     const colorPickers = document.querySelectorAll('.color-picker');
     colorPickers.forEach((picker) => {
@@ -162,7 +217,6 @@ document.addEventListener('click', (event) => {
       }
     });
 });
-
 
 const colorPickers = document.querySelectorAll('.color-picker');
 colorPickers.forEach((picker) => {
