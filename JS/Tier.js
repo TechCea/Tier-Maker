@@ -151,6 +151,7 @@ saveButton.addEventListener('click', () => {
         });
 });
 
+
 document.addEventListener('click', (event) => {
     const colorPickers = document.querySelectorAll('.color-picker');
     colorPickers.forEach((picker) => {
